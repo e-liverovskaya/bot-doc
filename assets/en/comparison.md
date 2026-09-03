@@ -6,7 +6,7 @@ summary: A side-by-side comparison of the two ways to extend the robot, and whic
 
 # Comparison of C++ Formulas and WebSocket API
 
-Extending the robot's functionality is possible in two ways: using [С++ formulas](c-api.md#cpp) or the [WebSocket API](api.md#api). These are different mechanisms designed for different purposes, although they share some similarities. For user convenience, the table below compares [С++ formulas](c-api.md#cpp) and [WebSocket API](api.md#api) across several key parameters.
+Extending existing robot capabilities is possible in two ways: using [C++ formulas](c-api.md#cpp) and [WebSocket API](api.md#api) mechanisms. If desired, these different mechanisms can be combined. They solve different tasks; nevertheless, they share common features. For user convenience, the table below compares [C++ formulas](c-api.md#cpp) and [WebSocket API](api.md#api) across a number of parameters.
 
 |FEATURE|[С++ FORMULAS](c-api.md#cpp)|[WEBSOCKET API](api.md#api)|
 |---|---|---|
