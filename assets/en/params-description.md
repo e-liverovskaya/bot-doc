@@ -681,38 +681,39 @@ Indicates whether the financial instrument is the primary (main) instrument of t
 
 ### k <Anchor :ids="['s.k']" />
 
-Sets the amount of artificial slippage, defining by how many ticks the price may deviate to the worse side from the specified price. Applied when:
-- placing orders according to the algorithm for the first and second legs;
-- and also when placing orders using the [Sell/Buy](params-description.md#p.buy_portfolio) buttons.
+Sets the artificial slippage size, determining the maximum number of points by which the execution price can deviate from the specified price in the worst direction. It is applied when:
+- placing orders for the first and second legs according to the algorithm;
+- and also when placing orders using [Sell/Buy](params-description.md#p.buy_portfolio) clickers.
 
-The `k` parameter is applied as follows:
-1. When placing the first leg according to the algorithm, this slippage is already taken into account when calculating the [Price_s/Price_b](params-description.md#p.price_s) price.
-2. When placing the second leg according to the algorithm, this slippage is applied from the market price or from the price found in the order book (depending on the [Type price](params-description.md#p.price_type) parameter settings).
-3. When placing orders via the [Sell/Buy](params-description.md#p.buy_portfolio) buttons, this slippage is used for instruments of both legs. The slippage is applied from the market price, i.e., when buying, the placement price is `offer + k`; when selling, the placement price is `bid − k`, where `bid` and `offer` are the best bid and ask prices, respectively.
+Parameter `k` is applied as follows:
+1. When placing the first leg order via the algorithm, this deviation is already factored into [Price_s/Price_b](params-description.md#p.price_s) calculation. 
+1. When placing the second leg order via the algorithm, this is a deviation from the market price or from the price found in the order book (depending on [Type price](params-description.md#p.price_type) and [Trading price OB](params-description.md#s.ob_t_p_t) parameter settings). 
+1. When placing orders via [Sell/Buy](params-description.md#p.buy_portfolio) clickers, this deviation is used for the instruments of both legs; the deviation is applied from the market price, i.e., when buying, the order price is `offer + k`, when selling, the order price is `bid−k`, where `bid` and `offer` are the best buy and sell prices, respectively.
 
-**Important!** The value of this parameter is not taken into account when calculating the spread. That is, with a positive `k` value, the spread may end up worse than calculated even without repositioning due to stop‑loss or timer.
+**Important!** Value of this parameter is not considered when calculating slippage. This means that with a positive `k` value, the actual slippage may be worse than calculated even without re-placing orders via [stop-loss](params-description.md#s.sle) or [timer](params-description.md#s.timer).
 
-**Important!** All order placements in the bot use slippage `k` or [k_sl](params-description.md#s.k_sl), except for the [Place order](params-description.md#p.order_security) button and the `Pos leveling` mode of the [Trade connections positions](interface.md#trade_connections_positions) widget. In these two cases, no slippage from the price specified by the user is used.
+**Important!** All order placements in the robot use `k` or [k_sl](params-description.md#s.k_sl) deviation, except for [Place order](params-description.md#p.order_security) clicker and `Pos leveling` mode of [Trade connections positions](interface.md#trade_connections_positions) widget. In these two cases, no deviations from the user-specified price are used.
 
 ### k_sl <Anchor :ids="['s.k_sl']" />
 
-Similar to parameter `k`, but used only:
-1. during order repositioning due to [SLE](params-description.md#s.sle) and [TE](params-description.md#s.te);
-2. and also in situations treated as equivalent:
-    - when using the [To market](params-description.md#p.to_market) button,
-    - when using the `Close` and `To market` flags in the [Timetable](params-description.md#p.use_tt).
+An analog of `k` parameter, it also sets the artificial slippage size, defining the maximum number of points by which the price can deviate from the specified price in the worst direction, but is used only:
+1. during order re-placements via [SLE](params-description.md#s.sle) and [TE](params-description.md#s.te);
+2. as well as in equivalent situations: 
 
-Defines the amount of artificial slippage, namely an offset from the market price, i.e., for a buy order, the placement price is `offer` + `k_sl`; for a sell order, the placement price is `bid` − `k_sl`, where `bid` and `offer` are the best bid and ask prices, respectively. The displayed prices (e.g., in [Portfolios table](interface.md#portfolios_table) widget) for [Price_s/Price_b](params-description.md#p.price_s) already include the `k_sl` parameter. The `k_sl` coefficient is used for all placements except for placements via the [Place order](params-description.md#p.order_security) button. If `Type price: Orderbook` is selected for calculations on the second leg, the portfolio instrument parameters [Calc price OB](params-description.md#s.ob_c_p_t) and [Trading price OB](params-description.md#s.ob_t_p_t) are used. The `k` or `k_sl` coefficients are applied after the calculation taking these parameters into account.
+   - when using [To market](params-description.md#p.to_market) clicker,
+   - when using `Close` and `To market` flags in [Timetable](params-description.md#p.use_tt).
 
-**Important!** All order placements in the bot use slippage [k](params-description.md#s.k) or `k_sl`, except for the [Place order](params-description.md#p.order_security) button and the `Pos leveling` mode of the [Trade connections positions](interface.md#trade_connections_positions) widget. In these two cases, no slippage from the price specified by the user is used.
+When re-placing a buy order, the new order will be placed at the price `offer + k_sl`; when re-placing a sell order, the new order will be placed at the price `bid−k_sl`, where `bid` and `offer` are the best buy and sell prices, respectively.
+
+**Important!** All order placements in the robot use [k](params-description.md#s.k) or `k_sl` deviation, except for [Place order](params-description.md#p.order_security) clicker and `Pos leveling` mode of [Trade connections positions](interface.md#trade_connections_positions) widget. In these two cases, no deviations from the user-specified price are used.
 
 ### SLE <Anchor :ids="['s.sle']" />
 
-Enable/disable stop-loss re-quoting functionality. Orders re-quoted due to stop-loss will subsequently be re-quoted according to a specific [algorithm](algorithm-comments.md#sl_timer).
+Enable/disable stop-loss re-placement function. Orders re-placed via [stop-loss](params-description.md#s.sl) are subsequently re-placed according to [algorithm](algorithm-comments.md#sl_timer).
 
 ### SL <Anchor :ids="['s.sl']" />
 
-Stop-loss value; when reached, the order (if not yet filled) must be canceled and resubmitted at the current market price. The stop-loss is measured from the original order placement price.
+[Stop-loss](params-description.md#s.sle) value at which an order must be canceled if not executed by that moment, and placed again at new market price (stop-loss is offset from initial order placement price).
 
 ### TE <Anchor :ids="['s.te']" />
 
