@@ -75,6 +75,8 @@ A crossed-out instrument in the portfolio indicates that the financial instrumen
 
 For real (non-virtual) trading, instead of the value `virtual`, select the transactional connection you previously created in the [Client code](params-description.md#s.client_code) field.
 
+There is a limit of 200 portfolios per robot. According to our observations, this exact number of portfolios can be added to a single robot without critical performance degradation in trading strategies. If more portfolios are required, it is recommended to distribute them across multiple robots rather than concentrating them in a single robot.
+
 For each portfolio, you can configure a trading schedule (on/off times) by navigating to the [Timetable](params-description.md#p.use_tt) tab.
  
 
