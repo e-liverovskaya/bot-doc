@@ -2916,7 +2916,7 @@ Payload:
 | >> ll | y | string |  | Label |
 | >> de | y | number |  | Elapsed days, 0 means expired, -1 means unknown |
 | >> dt | y | number | epoch_msec | Robot date/time (0 means unknown) |
-| >> tz | y | number |  | Robot's server timezone offset in seconds |
+| >> tz | y | number |  | Robot server timezone offset in seconds |
 | >> mtc | y | number |  | Robot transaction connections limit |
 | >> mc | y | number |  | Robot main loop counter |
 | >> mdc | y | number | stream_status | Market-data connections status |
@@ -3077,7 +3077,7 @@ Payload:
 | >> ll | n | string |  | Label |
 | >> de | n | number |  | Elapsed days, 0 means expired, -1 means unknown |
 | >> dt | n | number | epoch_msec | Robot date/time (0 means unknown) |
-| >> tz | n | number |  | Robot's server timezone offset in seconds |
+| >> tz | n | number |  | Robot server timezone offset in seconds |
 | >> mtc | n | number |  | Robot transaction connections limit |
 | >> mc | n | number |  | Robot main loop counter |
 | >> mdc | n | number | stream_status | Market-data connections status |
@@ -8738,7 +8738,7 @@ Example:
 
 ### Отписка от активных заявок транзакционного подключения робота
 
-Отписаться от активные заявки транзакционного подключения робота
+Отписаться от активных заявок транзакционного подключения робота
 
 <details>
 <summary>Request</summary>
